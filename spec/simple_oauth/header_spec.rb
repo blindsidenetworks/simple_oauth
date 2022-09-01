@@ -214,10 +214,46 @@ describe SimpleOAuth::Header do
         expect(header.send(:signature)).to eq 'HMAC_SHA1_SIGNATURE'
       end
 
+      specify 'when using HMAC-SHA256' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'HMAC-SHA256')
+        expect(header).to receive(:hmac_sha256_signature).once.and_return('HMAC_SHA256_SIGNATURE')
+        expect(header.send(:signature)).to eq 'HMAC_SHA256_SIGNATURE'
+      end
+
+      specify 'when using HMAC-SHA384' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'HMAC-SHA384')
+        expect(header).to receive(:hmac_sha384_signature).once.and_return('HMAC_SHA384_SIGNATURE')
+        expect(header.send(:signature)).to eq 'HMAC_SHA384_SIGNATURE'
+      end
+
+      specify 'when using HMAC-SHA512' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'HMAC-SHA512')
+        expect(header).to receive(:hmac_sha512_signature).once.and_return('HMAC_SHA512_SIGNATURE')
+        expect(header.send(:signature)).to eq 'HMAC_SHA512_SIGNATURE'
+      end
+
       specify 'when using RSA-SHA1' do
         header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'RSA-SHA1')
         expect(header).to receive(:rsa_sha1_signature).once.and_return('RSA_SHA1_SIGNATURE')
         expect(header.send(:signature)).to eq 'RSA_SHA1_SIGNATURE'
+      end
+
+      specify 'when using RSA-SHA256' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'RSA-SHA256')
+        expect(header).to receive(:rsa_sha256_signature).once.and_return('RSA_SHA256_SIGNATURE')
+        expect(header.send(:signature)).to eq 'RSA_SHA256_SIGNATURE'
+      end
+
+      specify 'when using RSA-SHA384' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'RSA-SHA384')
+        expect(header).to receive(:rsa_sha384_signature).once.and_return('RSA_SHA384_SIGNATURE')
+        expect(header.send(:signature)).to eq 'RSA_SHA384_SIGNATURE'
+      end
+
+      specify 'when using RSA-SHA512' do
+        header = SimpleOAuth::Header.new(:get, 'https://api.twitter.com/1/statuses/friends.json', {}, :signature_method => 'RSA-SHA512')
+        expect(header).to receive(:rsa_sha512_signature).once.and_return('RSA_SHA512_SIGNATURE')
+        expect(header.send(:signature)).to eq 'RSA_SHA512_SIGNATURE'
       end
 
       specify 'when using PLAINTEXT' do
