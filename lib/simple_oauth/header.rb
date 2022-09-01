@@ -101,6 +101,18 @@ module SimpleOAuth
       Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA1.new, secret, signature_base)).chomp.gsub(/\n/, '')
     end
 
+    def hmac_sha256_signature
+      Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA256.new, secret, signature_base)).chomp.gsub(/\n/, '')
+    end
+
+    def hmac_sha384_signature
+      Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA384.new, secret, signature_base)).chomp.gsub(/\n/, '')
+    end
+
+    def hmac_sha512_signature
+      Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::SHA512.new, secret, signature_base)).chomp.gsub(/\n/, '')
+    end
+
     def secret
       options.values_at(:consumer_secret, :token_secret).collect { |v| self.class.escape(v) }.join('&')
     end
@@ -124,6 +136,18 @@ module SimpleOAuth
 
     def rsa_sha1_signature
       Base64.encode64(private_key.sign(OpenSSL::Digest::SHA1.new, signature_base)).chomp.gsub(/\n/, '')
+    end
+
+    def rsa_sha256_signature
+      Base64.encode64(private_key.sign(OpenSSL::Digest::SHA256.new, signature_base)).chomp.gsub(/\n/, '')
+    end
+
+    def rsa_sha384_signature
+      Base64.encode64(private_key.sign(OpenSSL::Digest::SHA384.new, signature_base)).chomp.gsub(/\n/, '')
+    end
+
+    def rsa_sha512_signature
+      Base64.encode64(private_key.sign(OpenSSL::Digest::SHA512.new, signature_base)).chomp.gsub(/\n/, '')
     end
 
     def private_key
